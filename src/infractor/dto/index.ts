@@ -1,0 +1,14 @@
+export { CreateFotoDto } from './create-foto.dto';
+export { UpdateFotoDto } from './update-foto.dto';
+export { CreateHuellaDto } from './create-huella.dto';
+export { UpdateHuellaDto } from './update-huella.dto';
+export { CreateInfractorDto } from './create-infractor.dto';
+export { UpdateInfractorDto } from './update-infractor.dto';
+export { CreateEstadioDto } from './create-estadio.dto';
+export { UpdateEstadioDto } from './update-estadio.dto';
+export { CreateInfraccionDto } from './create-infraccion.dto';
+export { UpdateInfraccionDto } from './update-infraccion.dto';
+export { CreateTestigoDto } from './create-testigo.dto';
+export { UpdateTestigoDto } from './update-testigo.dto';
+export { CreateSansionDto } from './create-sansion.dto';
+export { UpdateSansionDto } from './update-sansion.dto';
