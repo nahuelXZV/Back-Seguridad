@@ -12,15 +12,14 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @ApiTags('Users')
 @Controller('users')
-@UseGuards(AuthGuard, RolesGuard)
+// @UseGuards(AuthGuard, RolesGuard)
 export class UsersController {
 
     constructor(
         private readonly usersService: UsersService
     ) { }
 
-    // @RolesAccess('ADMIN')
-    @PublicAccess()
+    @RolesAccess('ADMIN')
     @ApiBearerAuth()
     @Post()
     public async createUser(@Body() body: UserDTO): Promise<UsersEntity> {

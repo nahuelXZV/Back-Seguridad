@@ -96,7 +96,8 @@ export class InfractorService {
                 foto.dir = file.dir;
                 foto.infractor = infractor;
                 foto.nombre = file.name;
-                await this.fotoRepository.save(foto);
+                const fotoCreated = await this.fotoRepository.save(foto);
+                if (!fotoCreated) throw new BadRequestException('No se pudo crear la foto.');
             });
             return { message: 'Fotos subidas correctamente' };
         } catch (error) {

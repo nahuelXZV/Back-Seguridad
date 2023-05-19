@@ -8,6 +8,7 @@ import { InfractorEntity } from '../entitites/infractor.entity';
 import { InfractorService } from '../services/infractor.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { CreateInfractorDto, UpdateInfractorDto } from '../dto';
+import { PublicAccess } from 'src/auth/decorators';
 
 @ApiTags('Infractores')
 // @UseGuards(AuthGuard, RolesGuard)
@@ -18,6 +19,7 @@ export class InfractorController {
         private readonly infractorService: InfractorService
     ) { }
 
+    @PublicAccess()
     @ApiBearerAuth()
     @RolesAccess('ADMIN')
     @Post()

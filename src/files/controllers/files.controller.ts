@@ -2,9 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInt
 import { FilesService } from '../services/files.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from '../helpers/fileFilter';
-import { diskStorage } from 'multer';
-import { fileNamer } from '../helpers/saveNamer';
-import { Response } from 'express';
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ImageDto } from '../dto/images.dto';
 

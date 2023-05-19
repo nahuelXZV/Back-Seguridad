@@ -9,11 +9,11 @@ export class S3Service {
         secretAccessKey: process.env.AWS_S3_KEY_SECRET,
     });
 
-    async uploadFile(file: Express.Multer.File, name: string = '') {
+    async uploadFile(file: Express.Multer.File, name: string = ''): Promise<any> {
         return await this.s3_upload(file.buffer, this.AWS_S3_BUCKET, name, file.mimetype);
     }
 
-    private async s3_upload(file: any, bucket: string, name: string, mimetype: string) {
+    private async s3_upload(file: any, bucket: string, name: string, mimetype: string): Promise<any> {
         const params = {
             Bucket: bucket,
             Key: String(name),
@@ -24,8 +24,7 @@ export class S3Service {
             CreateBucketConfiguration: { LocationConstraint: "us-east-2" }
         };
         try {
-            let s3Response = await this.s3.upload(params).promise();
-            return s3Response;
+            return await this.s3.upload(params).promise();
         }
         catch (e) {
             console.log(e);
