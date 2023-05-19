@@ -38,19 +38,9 @@ export class FilesController {
     @Post()
     @UseInterceptors(FilesInterceptor('fotos', 10, {
         fileFilter: fileFilter,
-        storage: diskStorage({
-            destination: './files/infractors',
-            filename: fileNamer,
-        })
     }))
     uploadFile(@UploadedFiles() fotos: Array<Express.Multer.File>, @Query('infractor_id', ParseUUIDPipe) infractor_id: string): Promise<any> {
         return this.filesService.uploadFile(fotos, infractor_id);
     }
 
-    @ApiParam({ name: 'imageName', type: 'string', required: true, description: 'nombre de la imagen' })
-    @Get('images/:imageName')
-    findOne(@Res() res: Response, @Param('imageName') imageName: string) {
-        const path = this.filesService.getStaticFile(imageName);
-        res.sendFile(path);
-    }
 }

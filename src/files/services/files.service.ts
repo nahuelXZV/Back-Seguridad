@@ -1,23 +1,22 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InfractorService } from 'src/infractor/services/infractor.service';
-import { existsSync } from 'fs';
-import { join } from 'path';
+import { S3Service } from 'src/providers/s3/s3.service';
 
 @Injectable()
 export class FilesService {
 
     constructor(
         private readonly infractorService: InfractorService,
+        private readonly s3Service: S3Service
     ) { }
 
     async uploadFile(fotos: Array<Express.Multer.File>, id: string): Promise<any> {
         try {
             const dataFiles = [];
             fotos.forEach((foto) => {
-                const fileExtension = foto.mimetype.split('/')[1];
                 const originalname = foto.originalname.split('.')[0];
-                const fileName = `${id}_${originalname}.${fileExtension}`;
-                const path = `${process.env.APP_URL}/api/files/images/${fileName}`;
+                const fileName = `${originalname}_${id}`;
+                const path = this.s3Service.uploadFile(foto, fileName);
                 let data = {
                     dir: path,
                     name: fileName,
@@ -29,11 +28,4 @@ export class FilesService {
             throw new BadRequestException(error.message);
         }
     }
-
-    getStaticFile(imageName: string) {
-        const path = join(__dirname, 'files', '..', '..', '..', '..', 'files', 'infractors', imageName);
-        if (!existsSync(path)) throw new BadRequestException('File not found');
-        return path;
-    }
-
 }

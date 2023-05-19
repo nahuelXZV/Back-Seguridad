@@ -20,10 +20,12 @@ import { TestigoController } from './controllers/testigo.controller';
 import { DocumentoController } from './controllers/documento.controller';
 import { TestigoService } from './services/testigo.service';
 import { DocumentoService } from './services/documento.service';
+import { ProvidersModule } from 'src/providers/providers.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([InfractorEntity, FotoEntity, HuellaEntity, InfraccionEntity, DocumentoEntity, EstadioEntity, SansionEntity, TestigoEntity]),
+    ProvidersModule
   ],
   providers: [InfractorService, InfraccionService, EstadioService, SansionService, TestigoService, DocumentoService],
   controllers: [InfractorController, SancionController, EstadioController, InfraccionController, TestigoController, DocumentoController],
