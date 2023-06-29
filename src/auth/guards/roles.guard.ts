@@ -4,7 +4,6 @@ import { Request } from 'express';
 import { Observable } from 'rxjs';
 
 import { ADMIN_KEY, PUBLIC_KEY, ROLES, ROLES_KEY } from 'src/constants';
-import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -24,10 +23,10 @@ export class RolesGuard implements CanActivate {
       const { roleUser } = request;
       if (roles === undefined) {
         if (!admin) return true;
-        if (admin && roleUser === ROLES.ADMIN) return true;
+        if (admin && roleUser === ROLES.ADMINISTRADOR) return true;
         throw new UnauthorizedException('No tienes permisos para acceder a esta ruta.');
       }
-      if (roleUser === ROLES.ADMIN) return true;
+      if (roleUser === ROLES.ADMINISTRADOR) return true;
       const isAuthorized = roles.some((role) => roleUser === role);
       if (!isAuthorized) throw new UnauthorizedException('No tienes permisos para acceder a esta ruta.');
       return true;

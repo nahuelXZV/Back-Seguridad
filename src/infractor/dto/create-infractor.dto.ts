@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsEnum, IsNotEmpty, IsString, IsOptional } from "class-validator";
 import { SEXO } from "src/constants";
 import { CreateHuellaDto } from "./create-huella.dto";
 
@@ -78,5 +78,6 @@ export class CreateInfractorDto {
     })
     @IsNotEmpty()
     @IsArray()
+    @IsOptional()
     huellas: CreateHuellaDto[];
 }

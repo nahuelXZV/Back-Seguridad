@@ -19,7 +19,7 @@ export class UsersController {
         private readonly usersService: UsersService
     ) { }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiBearerAuth()
     @Post()
     public async createUser(@Body() body: UserDTO): Promise<UsersEntity> {
@@ -48,7 +48,7 @@ export class UsersController {
         return await this.usersService.update(id, body);
     }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiParam({ name: 'id', type: 'string' })
     @ApiBearerAuth()
     @Delete(':id')

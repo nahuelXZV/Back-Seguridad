@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { InfractorModule } from './infractor/infractor.module';
 import { ProvidersModule } from './providers/providers.module';
 import { FilesModule } from './files/files.module';
+import { InteligenciaArtificialModule } from './inteligencia-artificial/inteligencia-artificial.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { FilesModule } from './files/files.module';
     InfractorModule,
     ProvidersModule,
     FilesModule,
+    InteligenciaArtificialModule,
   ],
   controllers: []
 })

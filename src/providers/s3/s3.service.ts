@@ -39,4 +39,18 @@ export class S3Service {
         const result = await this.s3.listObjectsV2(params).promise();
         return result.Contents?.map((obj) => obj.Key) || [];
     }
+
+    async deleteTempFile(targetName: string): Promise<any> {
+        const params: AWS.S3.DeleteObjectRequest = {
+            Bucket: process.env.AWS_S3_BUCKET,
+            Key: targetName,
+        };
+        try {
+            return await this.s3.deleteObject(params).promise();
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 }

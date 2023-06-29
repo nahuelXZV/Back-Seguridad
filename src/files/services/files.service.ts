@@ -12,6 +12,8 @@ export class FilesService {
 
     async uploadFile(fotos: Array<Express.Multer.File>, id: string): Promise<any> {
         try {
+            const infractor = await this.infractorService.findOne(id);
+            if (!infractor) throw new BadRequestException('El infractor no existe');
             const dataFiles = [];
             await Promise.all(fotos.map(async (foto) => {
                 const originalname = foto.originalname.split('.')[0];

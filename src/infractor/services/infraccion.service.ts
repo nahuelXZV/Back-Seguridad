@@ -15,7 +15,7 @@ import { InfractorService } from './infractor.service';
 export class InfraccionService {
 
     private readonly logger = new Logger('InfraccionService');
-    relations = ['estadio', 'creador', 'infractor', 'sansion', 'testigos', 'documentos'];
+    relations = ['estadio', 'creador', 'sansion', 'testigos', 'documentos'];
 
     constructor(
         @InjectRepository(InfraccionEntity) private readonly infraccionRepository: Repository<InfraccionEntity>,

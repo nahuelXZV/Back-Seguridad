@@ -13,7 +13,7 @@ export class SancionController {
     constructor(private readonly sansionService: SansionService) { }
 
     @ApiBearerAuth()
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Post()
     create(@Body() createSansionDto: CreateSansionDto) {
         return this.sansionService.create(createSansionDto);
@@ -22,7 +22,7 @@ export class SancionController {
     @ApiBearerAuth()
     @ApiQuery({ name: 'limit', type: 'number', required: false })
     @ApiQuery({ name: 'offset', type: 'number', required: false })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get()
     findAll(@Query() paginationDto: PaginationDto) {
         return this.sansionService.findAll(paginationDto);
@@ -30,7 +30,7 @@ export class SancionController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.sansionService.findOne(id);
@@ -38,13 +38,13 @@ export class SancionController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateSansionDto: UpdateSansionDto) {
         return this.sansionService.update(id, updateSansionDto);
     }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
     @Delete(':id')

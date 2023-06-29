@@ -21,7 +21,7 @@ export class InfractorController {
 
     @PublicAccess()
     @ApiBearerAuth()
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Post()
     public async create(@Body() createInfractorDto: CreateInfractorDto): Promise<InfractorEntity> {
         return await this.infractorService.create(createInfractorDto);
@@ -30,7 +30,7 @@ export class InfractorController {
     @ApiBearerAuth()
     @ApiQuery({ name: 'limit', type: 'number', required: false })
     @ApiQuery({ name: 'offset', type: 'number', required: false })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get()
     public async findAll(@Query() paginationDto: PaginationDto): Promise<InfractorEntity[]> {
         return await this.infractorService.findAll(paginationDto);
@@ -38,7 +38,7 @@ export class InfractorController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get(':id')
     public async findOne(@Param('id') id: string): Promise<InfractorEntity> {
         return await this.infractorService.findOne(id);
@@ -46,13 +46,13 @@ export class InfractorController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Patch(':id')
     public async update(@Param('id') id: string, @Body() updateInfractorDto: UpdateInfractorDto): Promise<InfractorEntity> {
         return await this.infractorService.update(id, updateInfractorDto);
     }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
     @Delete(':id')

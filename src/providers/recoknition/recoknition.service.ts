@@ -13,21 +13,23 @@ export class RecoknitionService {
         this.rekognition = new AWS.Rekognition({ region: 'us-east-2', apiVersion: '2016-06-27', credentials: { accessKeyId: process.env.AWS_S3_ACCESS_KEY, secretAccessKey: process.env.AWS_S3_KEY_SECRET } });
     }
 
-    async searchEventosUsuariosFaces(eventoImage: string): Promise<string[]> {
+    async searchEventosUsuariosFaces(foto: Express.Multer.File): Promise<string[]> {
         const usuariosImages = await this.s3Service.getUsuariosImages();
-        const matchedImages = await this.compareEventosUsuariosFaces(eventoImage, usuariosImages);
+        const matchedImages = await this.compareEventosUsuariosFaces(foto, usuariosImages);
         return matchedImages;
     }
 
-    async compareEventosUsuariosFaces(eventoImage: string, usuariosImages: string[]): Promise<string[]> {
+    async compareEventosUsuariosFaces(foto: Express.Multer.File, usuariosImages: string[]): Promise<string[]> {
         const matchedImages: string[] = [];
-
+        const file = await this.uploadTempFile(foto);
+        console.log(file);
         for (const usuariosImage of usuariosImages) {
-            const similarity = await this.compareFaces(eventoImage, usuariosImage);
+            const similarity = await this.compareFaces(file.key, usuariosImage);
             if (similarity >= 80) {
                 matchedImages.push(usuariosImage);
             }
         }
+        await this.s3Service.deleteTempFile(file.key);
         return matchedImages;
     }
 
@@ -56,6 +58,15 @@ export class RecoknitionService {
         }
     }
 
-    // 
+    async uploadTempFile(foto: Express.Multer.File): Promise<{ key: string, location: string }> {
+        const path = await this.s3Service.uploadFile(foto, "temporal/" + foto.originalname);
+        return {
+            key: path.key,
+            location: path.Location
+        };
+    }
+
+    async deleteTempFile(key: string): Promise<void> {
+        await this.s3Service.deleteTempFile(key);
+    }
 }
- 

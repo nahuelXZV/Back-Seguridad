@@ -14,7 +14,7 @@ export class TestigoController {
     constructor(private readonly testigoService: TestigoService) { }
 
     @ApiBearerAuth()
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Post()
     create(@Body() createTestigoDto: CreateTestigoDto) {
         return this.testigoService.create(createTestigoDto);
@@ -23,7 +23,7 @@ export class TestigoController {
     @ApiBearerAuth()
     @ApiQuery({ name: 'limit', type: 'number', required: false })
     @ApiQuery({ name: 'offset', type: 'number', required: false })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get()
     findAll(@Query() paginationDto: PaginationDto) {
         return this.testigoService.findAll(paginationDto);
@@ -31,7 +31,7 @@ export class TestigoController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.testigoService.findOne(id);
@@ -39,13 +39,13 @@ export class TestigoController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateTestigoDto: UpdateTestigoDto) {
         return this.testigoService.update(id, updateTestigoDto);
     }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
     @Delete(':id')

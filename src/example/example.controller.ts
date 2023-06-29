@@ -10,7 +10,7 @@ export class ExampleController {
   constructor(private readonly estadioService: EstadioService) { }
 
   @ApiBearerAuth()
-  @RolesAccess('ADMIN')
+  @RolesAccess('ADMINISTRADOR')
   @Post()
   create(@Body() createEstadioDto: CreateEstadioDto) {
     return this.estadioService.create(createEstadioDto);
@@ -19,7 +19,7 @@ export class ExampleController {
   @ApiBearerAuth()
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   @ApiQuery({ name: 'offset', type: 'number', required: false })
-  @RolesAccess('ADMIN')
+  @RolesAccess('ADMINISTRADOR')
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.estadioService.findAll(paginationDto);
@@ -27,7 +27,7 @@ export class ExampleController {
 
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: 'string' })
-  @RolesAccess('ADMIN')
+  @RolesAccess('ADMINISTRADOR')
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.estadioService.findOne(id);
@@ -35,13 +35,13 @@ export class ExampleController {
 
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: 'string' })
-  @RolesAccess('ADMIN')
+  @RolesAccess('ADMINISTRADOR')
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEstadioDto: UpdateEstadioDto) {
     return this.estadioService.update(id, updateEstadioDto);
   }
 
-  @RolesAccess('ADMIN')
+  @RolesAccess('ADMINISTRADOR')
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: 'string' })
   @Delete(':id')

@@ -14,7 +14,7 @@ import { InfractorEntity } from '../entitites/infractor.entity';
 export class InfractorService {
 
     private readonly logger = new Logger('InfractorService');
-    relations = ['fotos', 'huellas'];
+    relations = ['fotos', 'huellas', 'infracciones'];
 
     constructor(
         @InjectRepository(InfractorEntity) private readonly infractorRepository: Repository<InfractorEntity>,

@@ -14,7 +14,7 @@ export class InfraccionController {
     constructor(private readonly infraccionService: InfraccionService) { }
 
     @ApiBearerAuth()
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Post()
     create(@Body() createInfraccionDto: CreateInfraccionDto) {
         return this.infraccionService.create(createInfraccionDto);
@@ -23,7 +23,7 @@ export class InfraccionController {
     @ApiBearerAuth()
     @ApiQuery({ name: 'limit', type: 'number', required: false })
     @ApiQuery({ name: 'offset', type: 'number', required: false })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get()
     findAll(@Query() paginationDto: PaginationDto) {
         return this.infraccionService.findAll(paginationDto);
@@ -31,7 +31,7 @@ export class InfraccionController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.infraccionService.findOne(id);
@@ -39,13 +39,13 @@ export class InfraccionController {
 
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateInfraccionDto: UpdateInfraccionDto) {
         return this.infraccionService.update(id, updateInfraccionDto);
     }
 
-    @RolesAccess('ADMIN')
+    @RolesAccess('ADMINISTRADOR')
     @ApiBearerAuth()
     @ApiParam({ name: 'id', type: 'string' })
     @Delete(':id')

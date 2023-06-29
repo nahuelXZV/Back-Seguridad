@@ -45,7 +45,7 @@ export class UserDTO {
     password: string;
 
     @ApiProperty({
-        example: 'admin',
+        example: 'administador',
         enum: ROLES,
         description: 'Rol del usuario'
     })
