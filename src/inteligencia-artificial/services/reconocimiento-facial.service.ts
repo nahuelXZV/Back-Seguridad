@@ -13,12 +13,8 @@ export class ReconocimientoFacialService {
 
   public async reconocimientoFacial(foto: Express.Multer.File) {
     try {
-      console.log(foto);
       const fotos = await this.recoknitionService.searchEventosUsuariosFaces(foto);
       const usuariosId = this.getUsers(fotos);
-
-      console.log(usuariosId);
-
       if (!usuariosId.length) return { message: 'No se encontraron coincidencias' };
       const infractor = await this.infractorService.findOne(usuariosId[0]);
       if (!infractor) return { message: 'No se encontraron coincidencias' };

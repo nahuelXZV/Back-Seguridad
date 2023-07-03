@@ -8,6 +8,7 @@ import { InfractorModule } from './infractor/infractor.module';
 import { ProvidersModule } from './providers/providers.module';
 import { FilesModule } from './files/files.module';
 import { InteligenciaArtificialModule } from './inteligencia-artificial/inteligencia-artificial.module';
+import { AlertasModule } from './alertas/alertas.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { InteligenciaArtificialModule } from './inteligencia-artificial/intelige
     ProvidersModule,
     FilesModule,
     InteligenciaArtificialModule,
+    AlertasModule,
   ],
   controllers: []
 })
