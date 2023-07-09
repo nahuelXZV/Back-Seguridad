@@ -5,9 +5,10 @@ import { ReconocimientoFacialController } from './controllers/reconocimiento-fac
 import { ReconocimientoFacialService } from './services/reconocimiento-facial.service';
 import { ProvidersModule } from 'src/providers/providers.module';
 import { InfractorModule } from 'src/infractor/infractor.module';
+import { AlertasModule } from 'src/alertas/alertas.module';
 
 @Module({
-  imports: [ProvidersModule, InfractorModule],
+  imports: [ProvidersModule, InfractorModule, AlertasModule],
   controllers: [ReconocimientoFacialController, ReconocimientoTribunaController],
   providers: [ReconocimientoFacialService, ReconocimientoTribunaService]
 })

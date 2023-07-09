@@ -1,10 +1,10 @@
-import { BaseEntity } from "src/common/entities/base.entity";
+import { BaseEntity } from "../../common/entities/base.entity";
 import { IInfractorAlerta } from "../interfaces/infractor_alerta.interface";
-import { ManyToOne } from "typeorm";
-import { InfractorEntity } from "src/infractor/entitites/infractor.entity";
+import { Entity, ManyToOne } from "typeorm";
+import { InfractorEntity } from "../../infractor/entitites/infractor.entity";
 import { Alerta } from "./alerta.entity";
 
-
+@Entity('infractor_alerta')
 export class InfractorAlertaEntity extends BaseEntity implements IInfractorAlerta {
 
     @ManyToOne(() => InfractorEntity)

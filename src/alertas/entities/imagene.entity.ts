@@ -1,4 +1,4 @@
-import { BaseEntity } from "src/common/entities/base.entity";
+import { BaseEntity } from "../../common/entities/base.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { IImagenes } from "../interfaces/imagenes.interface";
 import { Alerta } from "./alerta.entity";

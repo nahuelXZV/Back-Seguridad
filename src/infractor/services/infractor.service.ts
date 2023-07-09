@@ -55,7 +55,6 @@ export class InfractorService {
             return infractor;
         } catch (error) {
             this.handlerError(error);
-
         }
     }
 

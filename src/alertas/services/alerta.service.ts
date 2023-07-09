@@ -5,6 +5,9 @@ import { Repository } from 'typeorm';
 import { CreateAlertaDto } from '../dto/create-alerta.dto';
 import { UpdateAlertaDto } from '../dto/update-alerta.dto';
 import { Alerta } from '../entities/alerta.entity';
+import { InfractorAlertaEntity } from '../entities/infractor_alerta.entity';
+import { InfractorService } from 'src/infractor/services/infractor.service';
+import { InfractorEntity } from 'src/infractor/entitites/infractor.entity';
 
 @Injectable()
 export class AlertaService {
@@ -13,12 +16,24 @@ export class AlertaService {
 
   constructor(
     @InjectRepository(Alerta) private readonly alertaRepository: Repository<Alerta>,
+    @InjectRepository(InfractorAlertaEntity) private readonly infractorAlertaRepository: Repository<InfractorAlertaEntity>,
+    private readonly infractorService: InfractorService
   ) { }
 
   async create(createAlertaDto: CreateAlertaDto) {
     try {
-      const alerta = this.alertaRepository.create(createAlertaDto);
-      return await this.alertaRepository.save(alerta);
+      const { infractores, ...rest } = createAlertaDto;
+      const alerta = this.alertaRepository.create(rest);
+      await this.alertaRepository.save(alerta);
+      if (infractores?.length == 0) return alerta;
+      infractores.forEach(async infractorID => {
+        console.log(infractorID);
+        const infractorDB: InfractorEntity = await this.infractorService.findOne(infractorID);
+        if (!infractorDB) return;
+        const infractorAlerta = this.infractorAlertaRepository.create({ alerta, infractor: infractorDB });
+        await this.infractorAlertaRepository.save(infractorAlerta);
+      });
+      return alerta;
     } catch (error) {
       this.handlerError(error);
     }
@@ -46,8 +61,9 @@ export class AlertaService {
 
   async update(id: string, updateAlertaDto: UpdateAlertaDto) {
     try {
+      const { infractores, ...rest } = updateAlertaDto;
       const alerta = await this.findOne(id);
-      await this.alertaRepository.update(alerta.id, { ...updateAlertaDto });
+      await this.alertaRepository.update(alerta.id, { ...rest });
       return await this.findOne(id);
     } catch (error) {
       this.handlerError(error);

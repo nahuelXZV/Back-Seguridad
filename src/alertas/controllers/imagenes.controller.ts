@@ -1,15 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles, ParseUUIDPipe, Query } from '@nestjs/common';
 import { ImagenesService } from '../services/imagenes.service';
-import { CreateImageneDto } from '../dto/create-imagene.dto';
-import { UpdateImageneDto } from '../dto/update-imagene.dto';
+import { fileFilter } from 'src/files/helpers/fileFilter';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('imagenes')
 export class ImagenesController {
-  constructor(private readonly imagenesService: ImagenesService) {}
+  constructor(private readonly imagenesService: ImagenesService) { }
 
   @Post()
-  create(@Body() createImageneDto: CreateImageneDto) {
-    return this.imagenesService.create(createImageneDto);
+  @UseInterceptors(FileInterceptor('foto', {
+    fileFilter: fileFilter,
+  }))
+  create(@UploadedFiles() foto: Express.Multer.File, @Query('alerta_id', ParseUUIDPipe) alerta_id: string): Promise<any> {
+    return this.imagenesService.create(foto, alerta_id);
   }
 
   @Get()
@@ -19,16 +22,11 @@ export class ImagenesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.imagenesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateImageneDto: UpdateImageneDto) {
-    return this.imagenesService.update(+id, updateImageneDto);
+    return this.imagenesService.findOne(id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.imagenesService.remove(+id);
+    return this.imagenesService.remove(id);
   }
 }

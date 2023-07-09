@@ -14,11 +14,12 @@ const reconocimiento_facial_controller_1 = require("./controllers/reconocimiento
 const reconocimiento_facial_service_1 = require("./services/reconocimiento-facial.service");
 const providers_module_1 = require("../providers/providers.module");
 const infractor_module_1 = require("../infractor/infractor.module");
+const alertas_module_1 = require("../alertas/alertas.module");
 let InteligenciaArtificialModule = class InteligenciaArtificialModule {
 };
 InteligenciaArtificialModule = __decorate([
     (0, common_1.Module)({
-        imports: [providers_module_1.ProvidersModule, infractor_module_1.InfractorModule],
+        imports: [providers_module_1.ProvidersModule, infractor_module_1.InfractorModule, alertas_module_1.AlertasModule],
         controllers: [reconocimiento_facial_controller_1.ReconocimientoFacialController, reconocimiento_tribuna_controller_1.ReconocimientoTribunaController],
         providers: [reconocimiento_facial_service_1.ReconocimientoFacialService, reconocimiento_tribuna_service_1.ReconocimientoTribunaService]
     })

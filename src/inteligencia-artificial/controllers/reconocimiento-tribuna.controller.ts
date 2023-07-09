@@ -1,8 +1,9 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ReconocimientoTribunaService } from '../services/reconocimiento-tribuna.service';
 import { ApiBody } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from 'src/files/helpers/fileFilter';
+import { CreateAlertaDto } from 'src/alertas/dto/create-alerta.dto';
 
 @Controller('reconocimiento-tribuna')
 export class ReconocimientoTribunaController {
@@ -19,8 +20,8 @@ export class ReconocimientoTribunaController {
     @UseInterceptors(FileInterceptor('foto', {
         fileFilter: fileFilter,
     }))
-    reconocimientoTribuna(@UploadedFile() foto: Express.Multer.File) {
-        return this.reconocimientoTribunaService.reconocimientoTribuna(foto);
+    reconocimientoTribuna(@UploadedFile() foto: Express.Multer.File, @Body() data: CreateAlertaDto) {
+        return this.reconocimientoTribunaService.reconocimientoTribuna(foto, data);
     }
 
 }

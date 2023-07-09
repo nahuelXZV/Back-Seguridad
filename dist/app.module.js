@@ -17,6 +17,7 @@ const infractor_module_1 = require("./infractor/infractor.module");
 const providers_module_1 = require("./providers/providers.module");
 const files_module_1 = require("./files/files.module");
 const inteligencia_artificial_module_1 = require("./inteligencia-artificial/inteligencia-artificial.module");
+const alertas_module_1 = require("./alertas/alertas.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -30,6 +31,7 @@ AppModule = __decorate([
             providers_module_1.ProvidersModule,
             files_module_1.FilesModule,
             inteligencia_artificial_module_1.InteligenciaArtificialModule,
+            alertas_module_1.AlertasModule,
         ],
         controllers: []
     })
