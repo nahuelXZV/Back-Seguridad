@@ -37,7 +37,7 @@ let InfractorService = class InfractorService {
         this.fotoRepository = fotoRepository;
         this.huellaRepository = huellaRepository;
         this.logger = new common_1.Logger('InfractorService');
-        this.relations = ['fotos', 'huellas', 'infracciones'];
+        this.relations = ['fotos', 'huellas', 'infracciones', 'infracciones.estadio'];
     }
     async findAll(pagination) {
         try {
