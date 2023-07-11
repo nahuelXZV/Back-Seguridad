@@ -12,7 +12,6 @@ export class CreateDocumentoDto {
     @IsString()
     infraccion: string;
 
-
     @ApiProperty({
         example: 'example',
         description: 'descripcion del documento'
