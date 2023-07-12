@@ -15,9 +15,9 @@ export class ReconocimientoFacialService {
     try {
       const fotos = await this.recoknitionService.searchEventosUsuariosFaces(foto);
       const usuariosId = this.getUsers(fotos);
-      if (!usuariosId.length) return { message: 'No se encontraron coincidencias' };
+      if (!usuariosId.length) throw new BadRequestException('No se encontraron coincidencias');
       const infractor = await this.infractorService.findOne(usuariosId[0]);
-      if (!infractor) return { message: 'No se encontraron coincidencias' };
+      if (!infractor) throw new BadRequestException('No se encontraron coincidencias');
       return infractor;
     } catch (error) {
       this.handlerError(error);

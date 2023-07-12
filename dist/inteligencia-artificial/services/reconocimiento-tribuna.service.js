@@ -24,6 +24,7 @@ let ReconocimientoTribunaService = class ReconocimientoTribunaService {
     async reconocimientoTribuna(foto, data) {
         try {
             const infractores = await this.reconocimientoFacial(foto);
+            console.log(infractores);
             const alerta = await this.alertaService.create(Object.assign(Object.assign({}, data), { infractores: infractores }));
             if (!alerta)
                 return undefined;

@@ -15,6 +15,7 @@ export class RecoknitionService {
 
     async searchEventosUsuariosFaces(foto: Express.Multer.File): Promise<string[]> {
         const usuariosImages = await this.s3Service.getUsuariosImages();
+        console.log(usuariosImages);
         const matchedImages = await this.compareEventosUsuariosFaces(foto, usuariosImages);
         return matchedImages;
     }
@@ -25,6 +26,7 @@ export class RecoknitionService {
         console.log(file);
         for (const usuariosImage of usuariosImages) {
             const similarity = await this.compareFaces(file.key, usuariosImage);
+            console.log(similarity);
             if (similarity >= 80) {
                 matchedImages.push(usuariosImage);
             }

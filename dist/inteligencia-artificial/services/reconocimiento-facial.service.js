@@ -24,10 +24,10 @@ let ReconocimientoFacialService = class ReconocimientoFacialService {
             const fotos = await this.recoknitionService.searchEventosUsuariosFaces(foto);
             const usuariosId = this.getUsers(fotos);
             if (!usuariosId.length)
-                return { message: 'No se encontraron coincidencias' };
+                throw new common_1.BadRequestException('No se encontraron coincidencias');
             const infractor = await this.infractorService.findOne(usuariosId[0]);
             if (!infractor)
-                return { message: 'No se encontraron coincidencias' };
+                throw new common_1.BadRequestException('No se encontraron coincidencias');
             return infractor;
         }
         catch (error) {

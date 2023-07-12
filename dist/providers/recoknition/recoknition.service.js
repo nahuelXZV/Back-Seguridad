@@ -20,6 +20,7 @@ let RecoknitionService = class RecoknitionService {
     }
     async searchEventosUsuariosFaces(foto) {
         const usuariosImages = await this.s3Service.getUsuariosImages();
+        console.log(usuariosImages);
         const matchedImages = await this.compareEventosUsuariosFaces(foto, usuariosImages);
         return matchedImages;
     }
@@ -29,6 +30,7 @@ let RecoknitionService = class RecoknitionService {
         console.log(file);
         for (const usuariosImage of usuariosImages) {
             const similarity = await this.compareFaces(file.key, usuariosImage);
+            console.log(similarity);
             if (similarity >= 80) {
                 matchedImages.push(usuariosImage);
             }

@@ -19,7 +19,8 @@ export class ReconocimientoTribunaService {
         try {
             // Mandar a la IA y recibir un array de infractores
             const infractores = await this.reconocimientoFacial(foto);
-
+            console.log(infractores);
+            
             // Crear la alerta
             const alerta = await this.alertaService.create({ ...data, infractores: infractores });
             if (!alerta) return undefined;
