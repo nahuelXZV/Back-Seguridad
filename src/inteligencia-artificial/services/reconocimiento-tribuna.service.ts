@@ -20,14 +20,14 @@ export class ReconocimientoTribunaService {
             // Mandar a la IA y recibir un array de infractores
             const infractores = await this.reconocimientoFacial(foto);
             console.log(infractores);
-            
+
             // Crear la alerta
             const alerta = await this.alertaService.create({ ...data, infractores: infractores });
-            if (!alerta) return undefined;
+            if (!alerta) throw new BadRequestException('No se encontraron coincidencias');;
 
             // Subir la imagen
             const imagen = await this.imagenService.create(foto, alerta.id);
-            if (!imagen) return undefined;
+            if (!imagen) throw new BadRequestException('No se encontraron coincidencias');;
 
             // retornar la alerta
             return this.alertaService.findOne(alerta.id);
