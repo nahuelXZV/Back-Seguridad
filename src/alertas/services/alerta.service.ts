@@ -27,10 +27,11 @@ export class AlertaService {
       await this.alertaRepository.save(alerta);
       if (infractores?.length == 0) return alerta;
       infractores.forEach(async infractorID => {
-        console.log(infractorID);
         const infractorDB: InfractorEntity = await this.infractorService.findOne(infractorID);
+        console.log(infractorDB);
         if (!infractorDB) return;
         const infractorAlerta = this.infractorAlertaRepository.create({ alerta, infractor: infractorDB });
+        console.log(infractorAlerta);
         await this.infractorAlertaRepository.save(infractorAlerta);
       });
       return alerta;
@@ -42,7 +43,7 @@ export class AlertaService {
   async findAll() {
     try {
       return await this.alertaRepository.find({
-        relations: ['imagenes', 'infractores']
+        relations: ['imagenes', 'infractores', 'infractores.infractor']
       });
     } catch (error) {
       this.handlerError(error);
@@ -51,7 +52,7 @@ export class AlertaService {
 
   async findOne(id: string) {
     try {
-      const alerta = await this.alertaRepository.findOne({ where: { id }, relations: ['imagenes', 'infractores'] });
+      const alerta = await this.alertaRepository.findOne({ where: { id }, relations: ['imagenes', 'infractores', 'infractores.infractor'] });
       if (!alerta) throw new BadRequestException(`La alerta con id: ${id} no existe`);
       return alerta;
     } catch (error) {

@@ -50,7 +50,6 @@ export class S3Service {
         } catch (error) {
             console.log(error);
         }
-
     }
 
 }

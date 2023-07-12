@@ -50,6 +50,7 @@ let AlertaService = class AlertaService {
                 if (!infractorDB)
                     return;
                 const infractorAlerta = this.infractorAlertaRepository.create({ alerta, infractor: infractorDB });
+                console.log(infractorAlerta);
                 await this.infractorAlertaRepository.save(infractorAlerta);
             });
             return alerta;
@@ -61,7 +62,7 @@ let AlertaService = class AlertaService {
     async findAll() {
         try {
             return await this.alertaRepository.find({
-                relations: ['imagenes', 'infractores']
+                relations: ['imagenes', 'infractores', 'infractores.infractor']
             });
         }
         catch (error) {
@@ -70,7 +71,7 @@ let AlertaService = class AlertaService {
     }
     async findOne(id) {
         try {
-            const alerta = await this.alertaRepository.findOne({ where: { id }, relations: ['imagenes', 'infractores'] });
+            const alerta = await this.alertaRepository.findOne({ where: { id }, relations: ['imagenes', 'infractores', 'infractores.infractor'] });
             if (!alerta)
                 throw new common_1.BadRequestException(`La alerta con id: ${id} no existe`);
             return alerta;
